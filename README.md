@@ -1,0 +1,55 @@
+1、首先编译metartc相关包
+    cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6
+    
+    cd libmetartccore6
+    
+    # cmake_x64会自动创建build文件夹
+    ./cmake_x64.sh
+    
+    # 把编译成功的 libmetartccore6.a 复制到metartc6文件夹下
+    cp ./libmetartccore6.a FFmpeg-n4.3.3/metartc6
+
+    # Requires ffmpeg to be configured with --enable-gpl --enable-libx264
+    sudo apt-get install libx264-dev
+
+2、解压libsrtp-2-fit.tar.gz、openssl-1.1-fit.tar.gz并进行编译
+    cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6
+    
+    # 编译 srtp2
+    tar zxvf libsrtp-2-fit.tar.gz
+    cd libsrtp-2-fit/
+    ./configure 
+    make
+    cp libsrtp2.a FFmpeg-n4.3.3/metartc6
+    
+    # 编译openssl
+    tar zxvf openssl-1.1-fit.tar.gz
+    cd openssl-1.1-fit/
+    ./config
+    make
+    cp libcrypto.a libssl.a FFmpeg-n4.3.3/metartc6
+
+3、编译FFmpeg-webrtc    
+    ./configure --enable-libx264 --enable-gpl --enable-cross-compile --extra-libs='-L/home/user/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
+    make -j8
+    
+    # 编译期间会报很多错误，可以不用理会
+    make install
+
+4、目前测试结果
+    1）ffplay 没有，可能是少包了，或者编译FFmpeg-webrtc时./configure中没有启用相关配置
+    2）使用whip推流到SRS流媒体服务器，但是拉流失败！目前暂未找到原因
+    
+    3）把RTMP流推送到SRS，SRS把RTMP转成RTC，使用FFmpeg-webrtc whep拉流，成功实现延迟1秒左右
+# opus 配置
+    sudo apt-get install libopus-dev
+    
+# 编译FFmpeg-Webrtc
+    ./configure --enable-libx264 --enable-gpl --enable-cross-compile --enable-libpulse --enable-libopus --enable-ffplay --extra-libs='-L/home/oook/user/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
+
+# ffplay 播放命令
+    ffplay -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream'
+# SRS的whep地址是：http://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream
+ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
+
+ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
