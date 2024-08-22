@@ -14,6 +14,7 @@
     sudo apt-get install libx264-dev
 
 2、解压libsrtp-2-fit.tar.gz、openssl-1.1-fit.tar.gz并进行编译
+
     cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6
     
     # 编译 srtp2
@@ -31,6 +32,7 @@
     cp libcrypto.a libssl.a FFmpeg-n4.3.3/metartc6
 
 3、编译FFmpeg-webrtc    
+
     ./configure --enable-libx264 --enable-gpl --enable-cross-compile --extra-libs='-L/home/user/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
     make -j8
     
@@ -38,6 +40,7 @@
     make install
 
 4、目前测试结果
+
     1）ffplay 没有，可能是少包了，或者编译FFmpeg-webrtc时./configure中没有启用相关配置
     2）使用whip推流到SRS流媒体服务器，但是拉流失败！目前暂未找到原因
     
@@ -52,7 +55,6 @@
     ffplay -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream'
 # SRS的whep地址是：http://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
-
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
 
 ./ffmpeg -re -i ffmpeg-webrtc/test.mp4 -vcodec libx264 -acodec opus -strict -2 -ar 48000 -f webrtc "https://dev-rtc.radiotech.vn/rtc/v1/whip/?app=live&stream=livestream12345"
