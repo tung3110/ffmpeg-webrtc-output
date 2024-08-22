@@ -1,0 +1,16 @@
+
+srtp init success!
+
+avinfo->sys.whipUrl==rtc/v1/whip/?app=live&stream=livestream12345
+session->context.avinfo->sys.whipUrl=rtc/v1/whip/?app=live&stream=livestream12345
+startRtc,port=12025
+candidate:ip==42.96.40.74,type=host,port=8000
+candidate:ip==42.96.40.74,type=host,port=8000
+remoteIp=42.96.40.74,port=8000
+ dtls is openssl
+rtc udp(IPV4) server is starting,localPort=12025
+DTLS: Reset the timer for ServerHello
+dtls handshake is sucess
+
+webrtc disconnect
+Yang INFO: dtls info method=write,retcode=256,type==warning,desc==CN
