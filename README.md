@@ -1,4 +1,5 @@
 1、首先编译metartc相关包
+
     cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6
     
     cd libmetartccore6
@@ -53,3 +54,5 @@
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
 
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
+
+./ffmpeg -re -i ffmpeg-webrtc/test.mp4 -vcodec libx264 -acodec opus -strict -2 -ar 48000 -f webrtc "https://dev-rtc.radiotech.vn/rtc/v1/whip/?app=live&stream=livestream12345"
