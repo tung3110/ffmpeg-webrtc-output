@@ -1,0 +1,3 @@
+/home/tungnh/test/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6/libmetartccore6/build/CMakeFiles/rebuild_cache.dir
+/home/tungnh/test/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6/libmetartccore6/build/CMakeFiles/edit_cache.dir
+/home/tungnh/test/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6/libmetartccore6/build/CMakeFiles/metartccore6.dir
