@@ -57,4 +57,4 @@
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whep/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
 ffmpeg -i 'webrtc://127.0.0.1:1985/rtc/v1/whip-play/?app=live&stream=livestream' -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video30
 
-./ffmpeg -re -i ffmpeg-webrtc/test.mp4 -vcodec libx264 -acodec opus -strict -2 -ar 48000 -f webrtc "https://dev-rtc.radiotech.vn/rtc/v1/whip/?app=live&stream=livestream12345"
+./ffmpeg -re -i ffmpeg-webrtc/test.mp4 -vcodec libx264 -acodec opus -strict -2 -ar 48000 -f webrtc "http://192.168..1.23:1853/rtc/v1/whip/?app=live&stream=livestream12345"
