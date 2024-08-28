@@ -4,7 +4,6 @@
   build-essential \
   cmake \
   git-core \
-  libass-dev \
   libfreetype6-dev \
   libgnutls28-dev \
   libmp3lame-dev \
@@ -23,7 +22,11 @@
   wget \
   yasm \
   zlib1g-dev
-
+sudo apt install libunistring-dev libaom-dev libdav1d-dev
+sudo apt-get install libsdl2-dev
+   apt-get install libopus-dev
+   sudo apt-get install libx264-dev
+   sudo apt-get install libass-dev (bao loi)
 1、首先编译metartc相关包
 
     cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6
@@ -37,7 +40,7 @@
     cp build/libmetartccore6.a ~/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6
 
     # Requires ffmpeg to be configured with --enable-gpl --enable-libx264
-    sudo apt-get install libx264-dev
+    
 
 2、解压libsrtp-2-fit.tar.gz、openssl-1.1-fit.tar.gz并进行编译
 
@@ -59,8 +62,7 @@
 
 3、编译FFmpeg-webrtc    
 
-   sudo apt-get install libsdl2-dev
-   apt-get install libopus-dev
+   
     ./configure --enable-libx264 --enable-gpl --enable-cross-compile --enable-libpulse --enable-libopus --enable-ffplay --extra-libs='-L/root/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
     make -j8
     
