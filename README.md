@@ -1,3 +1,29 @@
+0. sudo apt-get update -qq && sudo apt-get -y install \
+  autoconf \
+  automake \
+  build-essential \
+  cmake \
+  git-core \
+  libass-dev \
+  libfreetype6-dev \
+  libgnutls28-dev \
+  libmp3lame-dev \
+  libsdl2-dev \
+  libtool \
+  libva-dev \
+  libvdpau-dev \
+  libvorbis-dev \
+  libxcb1-dev \
+  libxcb-shm0-dev \
+  libxcb-xfixes0-dev \
+  meson \
+  ninja-build \
+  pkg-config \
+  texinfo \
+  wget \
+  yasm \
+  zlib1g-dev
+
 1、首先编译metartc相关包
 
     cd ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6/metartc6
@@ -8,7 +34,7 @@
     ./cmake_x64.sh
     
     # 把编译成功的 libmetartccore6.a 复制到metartc6文件夹下
-    cp ./libmetartccore6.a FFmpeg-n4.3.3/metartc6
+    cp build/libmetartccore6.a ~/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6
 
     # Requires ffmpeg to be configured with --enable-gpl --enable-libx264
     sudo apt-get install libx264-dev
@@ -22,20 +48,20 @@
     cd libsrtp-2-fit/
     ./configure 
     make
-    cp libsrtp2.a FFmpeg-n4.3.3/metartc6
+    cp libsrtp2.a ~/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6
     
     # 编译openssl
     tar zxvf openssl-1.1-fit.tar.gz
     cd openssl-1.1-fit/
     ./config
     make
-    cp libcrypto.a libssl.a FFmpeg-n4.3.3/metartc6
+    cp libcrypto.a libssl.a ~/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6
 
 3、编译FFmpeg-webrtc    
 
    sudo apt-get install libsdl2-dev
-   
-    ./configure --enable-libx264 --enable-gpl --enable-cross-compile --enable-libpulse --enable-libopus --enable-ffplay --extra-libs='-L/home/oook/user/ffmpeg-webrtc/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
+   apt-get install libopus-dev
+    ./configure --enable-libx264 --enable-gpl --enable-cross-compile --enable-libpulse --enable-libopus --enable-ffplay --extra-libs='-L/root/ffmpeg-webrtc-orginal/FFmpeg-n4.3.3/metartc6 -lmetartccore6 -lpthread -lsrtp2 -lssl -lcrypto -ldl'
     make -j8
     
     # 编译期间会报很多错误，可以不用理会
